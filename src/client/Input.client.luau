@@ -151,7 +151,7 @@ local function UpdateCrack()
     local disabledSkill = char:GetAttribute('DisabledSkill')
 
     for _,skillSlot in skillsBar:GetChildren() do
-        if not skillSlot:IsA("TextButton") then return end
+        if not skillSlot:IsA("TextButton") then continue end
 
         if skillSlot.SkillName.Text == disabledSkill then
             if not skillSlot:FindFirstChild('SkillCrack') then
@@ -159,7 +159,7 @@ local function UpdateCrack()
                 newSkillCrack.Parent = skillSlot
             end
         else
-            local skillCrack = skillSlot:FindFirstChild('SkillCracked')
+            local skillCrack = skillSlot:FindFirstChild('SkillCrack')
             if skillCrack then
                 skillCrack:Destroy()
             end

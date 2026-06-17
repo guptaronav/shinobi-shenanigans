@@ -35,8 +35,9 @@ local ANIMS = {
 }
 
 local currentAnim = nil
+local currentAnimName = nil
 local function playAnim(name: string, speed: number?)
-	if currentAnim and currentAnim.Animation == name then
+	if currentAnim and currentAnimName == name then
 		if speed then currentAnim:AdjustSpeed(speed) end
 		return currentAnim
 	end
@@ -44,6 +45,7 @@ local function playAnim(name: string, speed: number?)
 		currentAnim:Stop()
 	end
 	currentAnim = AnimationController.Play(name, speed or 1, true)
+	currentAnimName = name
 	return currentAnim
 end
 
@@ -51,6 +53,7 @@ local function stopAnim()
 	if currentAnim then
 		currentAnim:Stop()
 		currentAnim = nil
+		currentAnimName = nil
 	end
 end
 
@@ -80,12 +83,12 @@ RunService.Heartbeat:Connect(function(dt)
 end)
 
 -- Grounded detection
-RunService.Heartbeat:Connect(function()
+RunService.Heartbeat:Connect(function(dt)
 	local isGrounded = humanoid.FloorMaterial ~= Enum.Material.Air
 	if isGrounded then
 		state.coyoteTime = 0.15
 	else
-		state.coyoteTime -= task.wait()
+		state.coyoteTime = math.max(0, state.coyoteTime - dt)
 	end
 end)
 

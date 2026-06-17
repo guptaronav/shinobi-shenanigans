@@ -10,16 +10,19 @@ local root = character:WaitForChild("HumanoidRootPart")
 local AnimationController = require(ReplicatedStorage:WaitForChild("AnimationController"))
 
 local currentAnim = nil
+local currentAnimName = nil
 
 local function playWalk()
-	if currentAnim and currentAnim.Animation == "Sneak Walk Animation" then return end
+	if currentAnim and currentAnimName == "Sneak Walk Animation" then return end
 	currentAnim = AnimationController.Play("Sneak Walk Animation", 0.6, true)
+	currentAnimName = "Sneak Walk Animation"
 end
 
 local function stopWalk()
 	if currentAnim then
 		currentAnim:Stop()
 		currentAnim = nil
+		currentAnimName = nil
 	end
 end
 

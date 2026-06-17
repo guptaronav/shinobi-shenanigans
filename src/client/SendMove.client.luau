@@ -1,4 +1,4 @@
-wait(2)
+task.wait(2)
 local player = game.Players.LocalPlayer
 local char = player.Character or player.CharacterAdded:Wait()
 
@@ -173,7 +173,8 @@ uis.InputBegan:Connect(function(input, gameProcessedEvent)
 			end
 		else
 			if player.Character.Humanoid.FloorMaterial ~= Enum.Material.Air and os.clock() - idleTime > 0 and player.Information.UltimateMeter.Value >= 100 then
-				fxMod['Ultimate'](game.Players.LocalPlayer.Character, {IsCaster = true, Skill='Ultimate', Action = action})
+				local ultimateFxMod = require(game.ReplicatedStorage.SkillsFX[ability.Value])
+				ultimateFxMod['Ultimate'](game.Players.LocalPlayer.Character, {IsCaster = true, Skill='Ultimate', Action = action})
 			end
 		end
 	end
