@@ -1,0 +1,12 @@
+# Roblox
+*.rbxl
+*.rbxlx
+
+# Rojo
+*.lock
+
+# Wally packages
+Packages/
+
+# macOS
+.DS_Store
