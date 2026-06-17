@@ -45,9 +45,11 @@ end
 
 function service.Get(char)
     if not characters[char] then
+        local elapsed = 0
         repeat
             task.wait()
-        until characters[char]
+            elapsed += task.wait()
+        until characters[char] or elapsed > 10
     end
     return characters[char]
 end
@@ -124,12 +126,10 @@ function service:DisableAttackState(disable: boolean, duration: number?)
 
     if not disable or not duration then return end
 
-    if self._Timer then coroutine.close(self._Timer) end
-    self._Timer = coroutine.create(function()
-        task.wait(duration)
+    if self._Timer then task.cancel(self._Timer) end
+    self._Timer = task.delay(duration, function()
         self.Character:SetAttribute('AttackDisabled', nil)
     end)
-    coroutine.resume(self._Timer)
 end
 
 function service:Superarmor(enable: boolean, duration: number?)
@@ -137,12 +137,10 @@ function service:Superarmor(enable: boolean, duration: number?)
 
     if not enable or not duration then return end
 
-    if self._STimer then coroutine.close(self._STimer) end
-    self._STimer = coroutine.create(function()
-        task.wait(duration)
+    if self._STimer then task.cancel(self._STimer) end
+    self._STimer = task.delay(duration, function()
         self.Character:SetAttribute('Superarmor', nil)
     end)
-    coroutine.resume(self._STimer)
 end
 
 function service:IFrame(enable: boolean, duration: number?)
@@ -150,12 +148,10 @@ function service:IFrame(enable: boolean, duration: number?)
 
     if not enable or not duration then return end
 
-    if self._ITimer then coroutine.close(self._ITimer) end
-    self._ITimer = coroutine.create(function()
-        task.wait(duration)
+    if self._ITimer then task.cancel(self._ITimer) end
+    self._ITimer = task.delay(duration, function()
         self.Character:SetAttribute('IFrame', nil)
     end)
-    coroutine.resume(self._ITimer)
 end
 
 --[=[
