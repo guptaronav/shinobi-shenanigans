@@ -137,7 +137,7 @@ function hitbox.new(): Hitbox
 	local self: Hitbox = setmetatable({}, HitboxObject)
 
 	-- Backend properties.
-	self.Runnning = false
+	self.Running = false
 	self.Hits = {} :: {Character}
 	self.HitEvent = {}
 	self.HitEvent._Event = nil :: callback

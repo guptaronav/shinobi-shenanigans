@@ -306,13 +306,10 @@ function service:Ragdoll_(duration: number?, destructionFields: DestructionField
     end
 
     if not duration then return end
-    if self._RagdollTimers[char] then coroutine.close(self._RagdollTimers[char]) end
-    self._RagdollTimers[char] = coroutine.create(function()
-        task.wait(duration)
-        -- print("unragdolling")
+    if self._RagdollTimers[char] then task.cancel(self._RagdollTimers[char]) end
+    self._RagdollTimers[char] = task.delay(duration, function()
         self:UnRagdoll(char)
     end)
-    coroutine.resume(self._RagdollTimers[char])
 end
 
 function service:UnRagdoll(char)

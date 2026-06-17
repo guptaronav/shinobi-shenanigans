@@ -33,7 +33,12 @@ game.ReplicatedStorage.Remotes.GetTarget.OnClientInvoke = function(filterList: t
         -- print('Distance: '..v)
         
         for _, subject in workspace.Characters:GetChildren() do
-            if not subject:FindFirstChild('HumanoidRootPart') or subject == char or (filterList and (not whitelist and table.find(filterList, subject) or not table.find(filterList, subject))) then continue end
+            if not subject:FindFirstChild('HumanoidRootPart') or subject == char then continue end
+            if filterList then
+                local inList = table.find(filterList, subject)
+                if whitelist and not inList then continue end
+                if not whitelist and inList then continue end
+            end
 
             local subDistance = (subject.HumanoidRootPart.Position - pos).Magnitude
             -- print(subDistance, subject)

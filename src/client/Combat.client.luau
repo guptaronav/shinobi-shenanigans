@@ -101,7 +101,7 @@ local function M1(_, inputState, inputObject, isIteration: boolean?)
 	local extra = {}
 
 	if jumping or hum.FloorMaterial == Enum.Material.Air or hum.FloorMaterial == nil then
-		extra.Variant = "Arieal"
+		extra.Variant = "Aerial"
 	end
 
 	extra.LookVector = humRoot.CFrame.LookVector
@@ -351,7 +351,6 @@ end
 cas:BindActionAtPriority('Run', Run, false, 0, Enum.KeyCode.W)
 uis.TouchMoved:Connect(function(touch, gp)
 	-- if gp then return end
-	print(hum.MoveDirection)
 	if hum.MoveDirection.Magnitude ~= 0 then
 		Run(nil, Enum.UserInputState.Begin)
 	end
