@@ -225,9 +225,8 @@ local function BlockStart()
 		blockRemote:FireServer(true)
 
 		AnimationService.StopAnimationsOfOrigin(char, 'Run')
-		-- Run(nil, Enum.UserInputState.Begin, Enum.KeyCode.W)
 
-		while task.wait() and isBlocking do
+		while task.wait(0.2) and isBlocking do
 			blockRemote:FireServer(true)
 		end
 	end

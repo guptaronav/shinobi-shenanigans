@@ -8,6 +8,7 @@ local util = require(game.ReplicatedStorage.Modules:WaitForChild('Utility'))
 local infoFolder = game.Players.LocalPlayer:WaitForChild("Information")
 
 local ability = infoFolder:WaitForChild("Technique")
+local formValue = char:WaitForChild("Form")
 
 local techData = require(game.ReplicatedStorage.Modules.TechniqueData)
 local moveData = techData[ability.Value].Skills
@@ -19,7 +20,7 @@ local activeAlts = {}
 local function getMoveName(n, bypassAlt)
 	if type(n) ~= 'string' then
 		for i,v in pairs(moveData) do
-			if v.Order == n and v.Form == char:WaitForChild('Form').Value then
+			if v.Order == n and v.Form == formValue.Value then
 				if not bypassAlt then
 					if activeAlts[i] then
 						return v.Alts[activeAlts[i]]
