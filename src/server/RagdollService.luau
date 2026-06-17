@@ -79,7 +79,7 @@ end
 
 function service:EnableMotor6D(char, enable: boolean)
     for i,v in char:GetDescendants() do
-        if v.Name == "Handle" or v.Name == "RootJoint" or v.Name == "Neck" then return end
+        if v.Name == "Handle" or v.Name == "RootJoint" or v.Name == "Neck" then continue end
         if v:IsA("Motor6D") then v.Enabled = enable end
         -- if v:IsA("BasePart") then v.CollisionGroup = if enable then "Character" else "Ragdoll" end
     end
@@ -275,7 +275,7 @@ function service:Ragdoll_(duration: number?, destructionFields: DestructionField
         -- end)
 
         local exhaust = os.clock()
-        HitboxService.CollisionEventNew(char, function()
+        HitboxService.CollisionEvent(char, function()
             if not char:GetAttribute('Ragdolled') then return end
             if destructionFields.Delay and os.clock() - exhaust < destructionFields.Delay then return 1 end
             -- exhaust = os.clock()
